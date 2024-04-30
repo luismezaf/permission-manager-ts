@@ -1,6 +1,6 @@
 import definePermissions from "./src";
 
-export default definePermissions;
+export { definePermissions };
 
 export {
   DefinePermissionsOptions,

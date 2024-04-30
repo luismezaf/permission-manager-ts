@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import definePermissions from "..";
+import definePermissions from "../src";
 
 // Define a constant list of permissions that are expected to be managed by the system.
 // Remember to always use "as const" in your list of permissions to allow typescript infer correctly the result types.

@@ -1,0 +1,2 @@
+"use strict";function definePermissions(n,u){function r(i){var e={};for(const t of n){var r="can"+t.replace(/^(.)|[^a-zA-Z]+(.)/g,(e,r,n)=>(r||n).toUpperCase());Reflect.set(e,r,()=>{var e=t,r=i;if(r.includes(e))return!0;if(!u)return!1;if(u.groups)for(const s in u.groups)if(r.includes(s)&&u.groups[s].includes(e))return!0;var n=u.alias?Reflect.get(u.alias,e):null;return!(!n||!r.includes(n))})}return e}return{grant:e=>r(e)}}module.exports=definePermissions;
+//# sourceMappingURL=index.js.map
