@@ -1,6 +1,6 @@
 # PermissionManager.ts
 
-PermissionManager.ts is a utility library I decided to share with all of you after using it in my own projects and finding it extremely useful and convenient. It allows for simpler and more expressive management of permissions in JavaScript.
+PermissionManager.ts is a utility library that allows for simpler and more expressive management of permissions in JavaScript.
 
 ### Motivation
 
@@ -11,14 +11,14 @@ if (user.permissions.includes("create.task")) {
   // Create your task here
 }
 
-/* Or maybe you were used a constant instead a literal... */
+/* Or maybe you used a constant instead a literal... */
 
 if (user.permissions.includes(PERMISSIONS.CREATE_TASK)) {
-  // Create your task in a better way, but not enougth...
+  // Create your task here
 }
 ```
 
-This way you may have a lot of repetitive code.
+Doing this way you may have a lot of repited code fragments.
 
 ### Proposed solution
 
@@ -30,16 +30,16 @@ if (canCreateTask()) {
 }
 ```
 
-I know it, beautiful. But let's see how to make that awesome function work, I promise it's much easier than you think.
+I know, beautiful. But let's see how to make that awesome function work, I promise it's much easier than you might think.
 
 ## Initialization
 
-Simply import the definePermissions function, then define the list of permissions of your system (or import it) and finally pass it straight to definePermissions.
+Simply import the definePermissions function, then define the list of permissions of your project (or import it from another file) and finally pass it straight to definePermissions.
 
 ```TypeScript
 import definePermissions from "permission-manager-ts";
 
-const systemPermissions = [
+const projectPermissions = [
   'list.tasks',
   'create.tasks',
   'update.tasks',
@@ -47,22 +47,24 @@ const systemPermissions = [
   // ...other permissions
 ] as const;
 
-const permissionManager = definePermissions(systemPermissions);
+const permissionManager = definePermissions(projectPermissions);
 ```
 
-And that's all to define the manager. In the next step, let's see what we can use it for.
+And that's all to define the manager. For the next step, we will see what we can use it for.
 
 ## Basic Usage
 
-With the manager defined, the only thing we need are the permissions that the user of our system are currently in possesion of and pass it straight the "grant" function provided for the manager.
+With the manager defined, the only thing we need now, are the permissions that the user of our application currently have in possesion of and pass it straight to the "grant" function provided by the manager.
 
 ```TypeScript
 const permissions = permissionManager.grant(user.permissions);
 ```
 
-Voilá, now we have access to a list of functions that represents our inicial set of permissions (systemPermissions). What's the best part?
+Voilá, now we have access to a list of functions that represents our inicial set of permissions (projectPermissions). What's the best part?
 
-### It comes with fully TypeScript recommendations!
+### It comes with TypeScript recommendation for all the functions you might need!
+
+You can now just type "permissions." and get all those functions as typescript recommendations.
 
 ```TypeScript
 permissions.canListTasks();
@@ -71,8 +73,6 @@ permissions.canUpdateTasks();
 permissions.canDeleteTasks();
 ```
 
-Yeah, you can now just type "permissions." and get all those functions as typescript recommendations.
-
 ## Full code example
 
 Here is the full example, in a shortened form.
@@ -80,7 +80,7 @@ Here is the full example, in a shortened form.
 ```TypeScript
 import definePermissions from "permission-manager-ts";
 
-const systemPermissions = [
+const projectPermissions = [
   'list.tasks',
   'create.tasks',
   'update.tasks',
@@ -94,7 +94,7 @@ const {
   canUpdateTasks,
   canDeleteTasks,
   // ...other formatted permission functions
-} = definePermissions(systemPermissions).grant(user.permissions);
+} = definePermissions(projectPermissions).grant(user.permissions);
 
 if (canCreateTasks()) {
   // Create the most awesome task ever!
@@ -103,9 +103,9 @@ if (canCreateTasks()) {
 
 ## Group permissions
 
-Sometimes, you have a permission that represents a set of permissions. For example, the permission "all.tasks" may indicate that the user has all the permissions for the tasks module, which can includes "list.tasks", "create.tasks", "update.tasks" and "delete.tasks".
+Sometimes, you have a permission that represents a set of permissions. For example, the permission "all.tasks" may indicate that the user has all the permissions for the tasks module, which includes "list.tasks", "create.tasks", "update.tasks" and "delete.tasks".
 
-PermissionManager.ts allows you to create those kinds of groups by simply passing the "groups" property to the options parameter of definePermissions.
+PermissionManager.ts allows you to create those kinds of groups by simply passing the "groups" property to the "options" parameter of definePermissions.
 
 ```TypeScript
 
@@ -113,10 +113,10 @@ const groups = {
   "all.tasks": ['list.tasks', 'create.tasks', 'update.tasks', 'delete.tasks']
 };
 
-const permissions = definePermissions(systemPermissions, { groups }).grant(user.permissions);
+const permissions = definePermissions(projectPermissions, { groups }).grant(user.permissions);
 ```
 
-This way, you are not adding a new permission to your system permissions set, so you will not receive a recommendation like "canAllTasks()" which doesn't make any sense in this scenario.
+This way, you are not adding a new permission to your project permissions set, so you will not receive a recommendation like "canAllTasks()" which doesn't make any sense in this scenario.
 
 Now, assuming that the user has the "all.tasks" permission, it will be granted all the permissions of the group.
 
@@ -131,7 +131,7 @@ permissions.canDeleteTasks(); // true
 
 ## Permission alias
 
-Maybe your system doesn´t work with the format of permissions that can be easily formatted, such as "module:tasks-action:list" that would literaly be formatted as "canModuleTasksActionList()". In this case, you can use permission aliases.
+Maybe your project doesn´t work with a format of permissions that can be easily readed, such as "module:tasks-action:list" that would literaly be formatted as "canModuleTasksActionList()". In this case, you can use permission aliases.
 
 An alias converts your source permission into the declared permission, so let's say that you manage the following permissions in your database:
 
@@ -142,10 +142,10 @@ An alias converts your source permission into the declared permission, so let's 
 "module:tasks-action:delete"
 ```
 
-If you want to achieve pretty function names like "canListTasks", so you have to define your system permissions as the alias you want to use, and then declare the actual permission name to match both of them.
+If you want to have pretty function names like "canListTasks", so you have to define your project permissions as the alias you want to use, and then declare the actual permission name to match both of them.
 
 ```TypeScript
-const systemPermissions = [
+const projectPermissions = [
   'list.tasks',
   'create.tasks',
   'update.tasks',
@@ -159,7 +159,7 @@ const alias = {
   'delete.tasks': "module:tasks-action:delete",
 }
 
-const permissions = definePermissions(systemPermissions, { alias }).grant(user.permissions);
+const permissions = definePermissions(projectPermissions, { alias }).grant(user.permissions);
 
 // Assuming user.permissions = ['module:tasks-action:list']
 
@@ -178,14 +178,14 @@ I strongly recommend creating a hook to manage the permission definitions. Here 
 ``` TypeScript
 import definePermissions from "permission-manager-ts";
 
-const systemPermissions = [
+const projectPermissions = [
   'list.tasks',
   'create.tasks',
   'update.tasks',
   'delete.tasks',
 ] as const;
 
-const manager = definePermissions(systemPermissions);
+const manager = definePermissions(projectPermissions);
 
 export default function usePermissions() {
   const user = useGetUser(); // Get you user or pass it by parameter
@@ -215,7 +215,7 @@ export default TaskDetail() {
 }
 ```
 
-## VueJS useage
+## VueJS usage
 
 As this is a JavaScript library, you can also use it in your VueJS projects the same way you would in vanilla JavaScript.
 
@@ -224,14 +224,14 @@ I strongly recommend creating a hook to manage the permission definitions. Here 
 ``` TypeScript
 import definePermissions from "permission-manager-ts";
 
-const systemPermissions = [
+const projectPermissions = [
   'list.tasks',
   'create.tasks',
   'update.tasks',
   'delete.tasks',
 ] as const;
 
-const manager = definePermissions(systemPermissions);
+const manager = definePermissions(projectPermissions);
 
 export default function usePermissions() {
   const user = useGetUser(); // Get you user or pass it by parameter

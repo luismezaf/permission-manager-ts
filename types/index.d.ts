@@ -48,8 +48,8 @@ export type AliasFormat<T extends readonly string[]> = {
 };
 
 export type DefinePermissionsOptions<T extends readonly string[]> = {
-  groups?: GroupFormat<T>;
-  alias?: AliasFormat<T>;
+  groups?: GroupFormat<T> | Record<string, string[]>;
+  alias?: AliasFormat<T> | Record<string, string>;
 };
 
 export type DefinePermissionsResult<T extends readonly string[]> = {
