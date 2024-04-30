@@ -188,7 +188,7 @@ const projectPermissions = [
 const manager = definePermissions(projectPermissions);
 
 export default function usePermissions() {
-  const user = useGetUser(); // Get you user or pass it by parameter
+  const user = useGetUser(); // Get the application user
   return manager.grant(user.permissions);
 }
 ```
@@ -234,7 +234,7 @@ const projectPermissions = [
 const manager = definePermissions(projectPermissions);
 
 export default function usePermissions() {
-  const user = useGetUser(); // Get you user or pass it by parameter
+  const user = useGetUser(); // Get the application user
   return manager.grant(user.value.permissions);
 }
 ```
