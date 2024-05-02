@@ -32,12 +32,26 @@ if (canCreateTask()) {
 
 I know, beautiful. But let's see how to make that awesome function work, I promise it's much easier than you might think.
 
+## Installation
+
+Install from npm
+
+```bash
+npm i permission-manager.ts
+```
+
+Or install from yarn
+
+```bash
+yarn add permission-manager.ts
+```
+
 ## Initialization
 
 Simply import the definePermissions function, then define the list of permissions of your project (or import it from another file) and finally pass it straight to definePermissions.
 
 ```TypeScript
-import definePermissions from "permission-manager-ts";
+import { definePermissions } from "permission-manager.ts";
 
 const projectPermissions = [
   'list.tasks',
@@ -78,7 +92,7 @@ permissions.canDeleteTasks();
 Here is the full example, in a shortened form.
 
 ```TypeScript
-import definePermissions from "permission-manager-ts";
+import { definePermissions } from "permission-manager.ts";
 
 const projectPermissions = [
   'list.tasks',
@@ -176,7 +190,7 @@ As this is a JavaScript library, you can also use it in your RectJS or React Nat
 I strongly recommend creating a hook to manage the permission definitions. Here is a basic example.
 
 ``` TypeScript
-import definePermissions from "permission-manager-ts";
+import { definePermissions } from "permission-manager.ts";
 
 const projectPermissions = [
   'list.tasks',
@@ -222,7 +236,7 @@ As this is a JavaScript library, you can also use it in your VueJS projects the 
 I strongly recommend creating a hook to manage the permission definitions. Here is a basic example.
 
 ``` TypeScript
-import definePermissions from "permission-manager-ts";
+import { definePermissions } from "permission-manager.ts";
 
 const projectPermissions = [
   'list.tasks',
