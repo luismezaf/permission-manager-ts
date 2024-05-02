@@ -1,0 +1,9 @@
+{
+  "name": "permission-manager.ts",
+  "version": "0.2.2",
+  "description": "A very util function to simplify the permissions management",
+  "main": "index.js",
+  "repository": "https://github.com/luismezaf/permissions-manager-ts.git",
+  "author": "luismezaf <dmc.luisalfredo@gmail.com>",
+  "license": "MIT"
+}

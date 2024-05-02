@@ -16,9 +16,9 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "skipLibCheck": false,
-        "typeRoots": ["src/types/*.type.ts"],
+        "typeRoots": ["src/types/*.ts"],
         "outDir": "./dist"
     },
-    "include": ["src"],
-    "exclude": ["src/tests", "src/main.ts", "vite-env.d.ts", "style.css", "src/_ignores"]
+    "include": ["src/**/*", "types/**/*"],
+    "exclude": ["src/tests"]
 }

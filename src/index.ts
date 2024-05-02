@@ -4,7 +4,7 @@ import {
   PermissionsManager,
 } from "../types";
 
-export default function definePermissions<T extends readonly string[]>(
+export function definePermissions<T extends readonly string[]>(
   permissions: T,
   options?: DefinePermissionsOptions<T>
 ): DefinePermissionsResult<T> {

@@ -56,4 +56,6 @@ type DefinePermissionsResult<T extends readonly string[]> = {
   grant: (activePermissions: string[]) => PermissionsManager<T>;
 };
 
-export { AliasFormat, DefinePermissionsOptions, DefinePermissionsResult, GroupFormat, PermissionsManager };
+declare function definePermissions<T extends readonly string[]>(permissions: T, options?: DefinePermissionsOptions<T>): DefinePermissionsResult<T>;
+
+export { definePermissions };
