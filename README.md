@@ -185,9 +185,9 @@ permissions.canDeleteTasks(); // false
 
 ## ReactJS and React Native usage
 
-As this is a JavaScript library, you can also use it in your RectJS or React Native projects the same way you would in vanilla JavaScript.
+As this is a JavaScript library, you can also use it in your ReactJS or React Native projects the same way you would in vanilla JavaScript.
 
-I strongly recommend creating a hook to manage the permission definitions. Here is a basic example.
+I strongly recommend creating a hook to manage the permission definition. Here is a basic example.
 
 ``` TypeScript
 import { definePermissions } from "permission-manager.ts";
@@ -201,7 +201,7 @@ const projectPermissions = [
 
 const manager = definePermissions(projectPermissions);
 
-export default function usePermissions() {
+export function usePermissions() {
   const user = useGetUser(); // Get the application user
   return manager.grant(user.permissions);
 }
@@ -214,7 +214,7 @@ So now, you can import the hook into any component you need to validate permissi
 In this example, the visibility of the button for creating a new task is validated using the canCreateTask function defined by PermissionManager.ts.
 
 ``` TypeScript
-import usePermissions from '...';
+import { usePermissions } from '...';
 
 export default TaskDetail() {
   const { canCreateTask } = usePermissions();
@@ -233,7 +233,7 @@ export default TaskDetail() {
 
 As this is a JavaScript library, you can also use it in your VueJS projects the same way you would in vanilla JavaScript.
 
-I strongly recommend creating a hook to manage the permission definitions. Here is a basic example.
+I strongly recommend creating a hook to manage the permission definition. Here is a basic example.
 
 ``` TypeScript
 import { definePermissions } from "permission-manager.ts";
@@ -247,7 +247,7 @@ const projectPermissions = [
 
 const manager = definePermissions(projectPermissions);
 
-export default function usePermissions() {
+export function usePermissions() {
   const user = useGetUser(); // Get the application user
   return manager.grant(user.value.permissions);
 }
@@ -260,6 +260,12 @@ So now you can import the hook in any component you need to validate permissions
 In this example, the visibility of the button for creating a new task is validated using the canCreateTask function defined by PermissionManager.ts.
 
 ``` TypeScript
+<script setup lang="ts">
+import { usePermissions } from '...';
+
+const { canCreateTask } = usePermissions();
+</script>
+
 <template>
 <!-- ... -->
 
@@ -267,10 +273,3 @@ In this example, the visibility of the button for creating a new task is validat
 
 <!-- ... -->
 </template>
-
-<script setup lang="ts">
-import usePermissions from '...';
-
-const { canCreateTask } = usePermissions();
-</script>
-
